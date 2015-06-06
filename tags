@@ -1,0 +1,73 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 w
+CC	Makefile	/^CC	= gcc $/;"	m
+CMD	udpcksum/pcap.c	22;"	d	file:
+DEPS	Makefile	/^DEPS	= config.h unp.h unpthread.h$/;"	m
+EXECS	Makefile	/^EXECS	= daytimetcpcli daytimetcpcliv6 daytimetcpserv 1.3 1.4 1.5	\\$/;"	m
+ICMPD_PATH	icmpd/unpicmpd.h	6;"	d
+OPT	Makefile	/^OPT	= -I.\/ -g -pthread$/;"	m
+TTL_OUT	udpcksum/udpcksum.h	30;"	d
+WRAPERS	Makefile	/^WRAPERS	= wraplib.o wrappthread.o wrapsock.o wrapstdio.o wrapunix.o$/;"	m
+__unpicmp_h	icmpd/unpicmpd.h	2;"	d
+allset	icmpd/icmpd.h	/^fd_set	rset, allset;$/;"	v
+canjump	udpcksum/udpcksum.c	/^static int canjump;$/;"	v	file:
+cleanup	udpcksum/cleanup.c	/^void cleanup(int signo)$/;"	f
+cliaddr	icmpd/icmpd.h	/^struct sockaddr_un cliaddr;$/;"	v	typeref:struct:sockaddr_un
+client	icmpd/icmpd.h	/^struct client {$/;"	s
+client	icmpd/icmpd.h	/^} client[FD_SETSIZE];$/;"	v	typeref:struct:client
+connfd	icmpd/icmpd.h	/^	int	connfd;	\/* Unix domain stream socket to client *\/$/;"	m	struct:client
+datalink	udpcksum/main.c	/^int	datalink;	\/* from pcap_datalink(), in <net\/bpf.h> *\/$/;"	v
+dest	udpcksum/main.c	/^struct sockaddr	*dest, *local;$/;"	v	typeref:struct:sockaddr
+destlen	udpcksum/main.c	/^socklen_t destlen, locallen;$/;"	v
+device	udpcksum/main.c	/^char	*device;	\/* pcap device *\/$/;"	v
+dg_cli	icmpd/dgcli01.c	/^void dg_cli(FILE *fp, int sockfd, const SA *pservaddr, socklen_t servlen)$/;"	f
+family	icmpd/icmpd.h	/^	int	family;	\/* AF_INET or AF_INET6 *\/$/;"	m	struct:client
+fd4	icmpd/icmpd.h	/^int	fd4, fd6, listenfd, maxi, maxfd, nready;$/;"	v
+fd6	icmpd/icmpd.h	/^int	fd4, fd6, listenfd, maxi, maxfd, nready;$/;"	v
+gotalarm	traceroute/sig_alrm.c	/^int	gotalarm;$/;"	v
+icmpcode_v6	traceroute/icmpcode_v6.c	/^const char *icmpcode_v6(int code)$/;"	f
+icmpd_code	icmpd/unpicmpd.h	/^	char	icmpd_code;	\/* actual ICMPV[46] code *\/$/;"	m	struct:icmpd_err
+icmpd_dest	icmpd/unpicmpd.h	/^	struct sockaddr_storage icmpd_dest; \/* sockaddr_storage handles any size *\/$/;"	m	struct:icmpd_err	typeref:struct:icmpd_err::sockaddr_storage
+icmpd_err	icmpd/unpicmpd.h	/^struct icmpd_err {$/;"	s
+icmpd_errno	icmpd/unpicmpd.h	/^	int	icmpd_errno;	\/* EHOSTUNREACH, EMSGSIZE, ECONNREFUSED *\/$/;"	m	struct:icmpd_err
+icmpd_len	icmpd/unpicmpd.h	/^	socklen_t icmpd_len;	\/* length of sockaddr{} that follows *\/$/;"	m	struct:icmpd_err
+icmpd_type	icmpd/unpicmpd.h	/^	char	icmpd_type;	\/* actual ICMPv[46] type *\/$/;"	m	struct:icmpd_err
+jmpbuf	udpcksum/udpcksum.c	/^static sigjmp_buf jmpbuf;$/;"	v	file:
+l	udpcksum/senddnsquery-libnet.c	/^static libnet_t *l;	\/* libnet descriptor *\/$/;"	v	file:
+listenfd	icmpd/icmpd.h	/^int	fd4, fd6, listenfd, maxi, maxfd, nready;$/;"	v
+local	udpcksum/main.c	/^struct sockaddr	*dest, *local;$/;"	v	typeref:struct:
+locallen	udpcksum/main.c	/^socklen_t destlen, locallen;$/;"	v
+locallookup	udpcksum/main.c	/^struct sockaddr_in locallookup;$/;"	v	typeref:struct:sockaddr_in
+lport	icmpd/icmpd.h	/^	int	lport;	\/* local port bound to client's UDP socket *\/$/;"	m	struct:client
+main	icmpd/icmpd.c	/^int main(int argc, char **argv)$/;"	f
+main	udpcksum/main.c	/^int main(int argc, char *argv[])$/;"	f
+maxfd	icmpd/icmpd.h	/^int	fd4, fd6, listenfd, maxi, maxfd, nready;$/;"	v
+maxi	icmpd/icmpd.h	/^int	fd4, fd6, listenfd, maxi, maxfd, nready;$/;"	v
+next_pcap	udpcksum/pcap.c	/^char *next_pcap(int *len)$/;"	f
+nready	icmpd/icmpd.h	/^int	fd4, fd6, listenfd, maxi, maxfd, nready;$/;"	v
+open_output	udpcksum/senddnsquery-libnet.c	/^void open_output(void)$/;"	f
+open_output	udpcksum/udpwrite.c	/^void open_output(void)$/;"	f
+open_pcap	udpcksum/pcap.c	/^void open_pcap(void)$/;"	f
+pd	udpcksum/main.c	/^pcap_t	*pd;		\/* packet capture struct pointer *\/$/;"	v
+rawfd	udpcksum/main.c	/^int	rawfd;		\/* raw socket to write on *\/$/;"	v
+rawfd	udpcksum/udpwrite.c	/^int rawfd;$/;"	v
+readable_conn	icmpd/readable_conn.c	/^int readable_conn(int i)$/;"	f
+readable_listen	icmpd/readable_listen.c	/^int readable_listen(void)$/;"	f
+readable_v4	icmpd/readable_v4.c	/^int readable_v4(void)$/;"	f
+readable_v6	icmpd/readable_v6.c	/^int readable_v6(void)$/;"	f
+recv_v4	traceroute/recv_v4.c	/^int recv_v4(int seq, struct timeval *tv)$/;"	f
+recv_v6	traceroute/recv_v6.c	/^int recv_v6(int seq, struct timeval *tv)$/;"	f
+rset	icmpd/icmpd.h	/^fd_set	rset, allset;$/;"	v
+send_dns_query	udpcksum/senddnsquery-libnet.c	/^void send_dns_query(void)$/;"	f
+send_dns_query	udpcksum/senddnsquery-raw.c	/^void send_dns_query(void)$/;"	f
+sig_alrm	traceroute/sig_alrm.c	/^void sig_alrm(int signo)$/;"	f
+sig_alrm	udpcksum/udpcksum.c	/^void sig_alrm(int signo) $/;"	f
+snaplen	udpcksum/main.c	/^int	snaplen = 200;	\/* amount of data to capture *\/$/;"	v
+test_udp	udpcksum/udpcksum.c	/^void test_udp(void)$/;"	f
+tpi_close	stream/tpi_close.c	/^void tpi_close(int fd)$/;"	f
+tpi_connect	stream/tpi_connect.c	/^void tpi_connect(int fd, const void *addr, size_t addrlen)$/;"	f
+tpi_read	stream/tpi_read.c	/^ssize_t tpi_read(int fd, void *buf, size_t len)$/;"	f
+udp_check	udpcksum/udpread.c	/^struct udpiphdr *udp_check(char *ptr, int len)$/;"	f
+udp_read	udpcksum/udpread.c	/^struct udpiphdr *udp_read(void)$/;"	f
+udp_write	udpcksum/udpwrite.c	/^void udp_write(char *buf, int userlen)$/;"	f
+verbose	udpcksum/main.c	/^int	verbose;$/;"	v
+zerosum	udpcksum/main.c	/^int	zerosum;	\/* send UDP query with no checksum. *\/$/;"	v

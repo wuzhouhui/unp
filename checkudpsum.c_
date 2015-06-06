@@ -1,0 +1,41 @@
+/* lack of header file. */
+/*
+ * =============================================================================
+ *
+ *       Filename:  checkudpsum.c
+ *
+ *    Description:  check if UDP check sum is on or off. figure 18-14,
+ *		    page 393/
+ *
+ *        Version:  1.0
+ *        Created:  03/28/2015 05:25:59 PM
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  YOUR NAME (), 
+ *   Organization:  
+ *
+ * =============================================================================
+ */
+
+#include "unp.h"
+#include <unistd.h>
+#include <linux/sysctl.h>
+#include <netinet/udp.h>
+#include <netinet/ip_var.h>	/* linux has no ip_var.h and udp.h */
+#include <netinet/udp_var.h>
+
+int main(int argc, char *argv[])
+{
+	int	mib[4], val;
+	size_t	len;
+	mib[0]	= CTL_NET;
+	mib[1]	= AF_INET;
+	mib[2]	= IPPROTO_UDP;
+	mib[3]	= UDPCTL_CHECKSUM;
+	len	= sizeof(val);
+	if (sysctl(mib, 4, &val, &len, NULL, 0) < 0)
+		err_sys("sysctl error");
+	printf("udp checksum flag: %d\n", val);
+	exit(0);
+}

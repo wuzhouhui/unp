@@ -1,0 +1,52 @@
+/*
+ * BSD-specific.
+ */
+/*
+ * =============================================================================
+ *
+ *       Filename:  sock_masktop.c
+ *
+ *    Description:  convert a mask to it's representation format.
+ *		    figure 18-10, page 390.
+ *
+ *        Version:  1.0
+ *        Created:  03/28/2015 04:46:58 PM
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  YOUR NAME (), 
+ *   Organization:  
+ *
+ * =============================================================================
+ */
+
+#include "unproute.h"
+
+const char *sock_masktop(SA *sa, socklen_t salen)
+{
+	static char str[INET6_ADDRSTRLEN];
+	unsigned char *ptr = &sa->sa_data[2];
+
+	switch (sa->sa_len) {
+	case 0:
+		return "0.0.0.0";
+	case 5:
+		snprintf(str, sizeof(str), "%d.0.0.0", *ptr);
+		break;
+	case 6:
+		snprintf(str, sizeof(str), "%d.%d.0.0", *ptr, *(ptr + 1));
+		break;
+	case 7:
+		snprintf(str, sizeof(str), "%d.%d.%d.0", 
+				*ptr, *(ptr + 1), *(ptr + 2));
+		break;
+	case 8:
+		snprintf(str, sizeof(str), "%d.%d.%d.%d", 
+				*ptr, *(ptr + 1), *(ptr + 2), *(ptr + 3));
+		break;
+	default:
+		snprintf(str, sizeof(str), "(unknown mask, len = %d, family = %d)",
+				sa->sa_len, sa->sa_family);
+	}
+	return str;
+}
