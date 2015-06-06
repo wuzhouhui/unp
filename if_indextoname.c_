@@ -1,0 +1,58 @@
+/*
+ * =============================================================================
+ *
+ *       Filename:  if_indextoname.c
+ *
+ *    Description:  return interface's name according interface's index.
+ *		    figure 18-19, page 398.
+ *
+ *        Version:  1.0
+ *        Created:  03/31/2015 10:48:43 PM
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  YOUR NAME (), 
+ *   Organization:  
+ *
+ * =============================================================================
+ */
+
+#include "unpifi.h"
+#include "unproute.h"
+
+char *if_indextoname(unsigned int idx, char *name)
+{
+	char	*buf, *next, *lim;
+	size_t	len;
+	struct if_msghdr *ifm;
+	struct sockaddr  *sa, *rti_info[RTAX_MAX];
+	struct sockaddr_dl *sdl;
+
+	if ((buf = net_rt_iflist(0, idx, &len)) == NULL)
+		return NULL;
+
+	lim = buf + len;
+	for (next = buf; next < lim; next += ifm->ifm_msglen) {
+		ifm = (struct if_msghdr *)next;
+		if (ifm->ifm_type == RTM_IFINFO) {
+			sa = (struct sockaddr *)(ifm + 1);
+			get_rtaddrs(ifm->ifm_addrs, sa, rti_info);
+			if ((sa = rti_info[RTAX_IFP]) == NULL)
+				continue;
+
+			if (sa->sa_family != AF_LINK)
+				continue;
+
+			sdl = (struct sockaddr_dl *)sa;
+			if (sdl->sdl_index == idx) {
+				int slen = min(IFNAMESIZ - 1, sdl->sdl_nlen);
+				strncpy(name, sdl->sdl_data, slen);
+				name[slen] = 0;
+				free(buf);
+				return name;
+			}
+		}
+	}
+	free(buf);
+	return NULL;
+}

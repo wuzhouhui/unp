@@ -1,0 +1,45 @@
+/*
+ * =============================================================================
+ *
+ *       Filename:  net_rt_iflist.c
+ *
+ *    Description:  return interface list by calling sysctl(), figure
+ *    18-15, page 394.
+ *
+ *        Version:  1.0
+ *        Created:  03/31/2015 10:23:20 PM
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  YOUR NAME (), 
+ *   Organization:  
+ *
+ * =============================================================================
+ */
+
+#inclide "unproute.h"
+
+char *net_rt_iflist(int family, int flags, size_t *lenp)
+{
+	int	mib[6];
+	char	*buf;
+
+	mib[0]	= CTL_NET;
+	mib[1]	= AF_ROUTE;
+	mib[2]	= 0;
+	mib[3]	= family;
+	mib[4]	= NET_RT_IFLIST;
+	mib[5]	= flags;
+
+	if (sysctl(mib, 6, NULL, lenp, NULL, 0) < 0)
+		return NULL;
+
+	if ((buf = malloc(*lenp)) == NULL)
+		return NULL;
+	if (sysctl(mib, 6, buf, lenp, NULL, 0) < 0) {
+		free(buf);
+		return NULL;
+	}
+
+	return buf;
+}

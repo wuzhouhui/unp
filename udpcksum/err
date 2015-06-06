@@ -1,0 +1,64 @@
+senddnsquery-libnet.c: In function ‘send_dns_query’:
+senddnsquery-libnet.c:39:35: error: ‘LIBNET_DNSV4_H’ undeclared (first use in this function)
+  int packet_size = LIBNET_UDP_H + LIBNET_DNSV4_H + 24;
+                                   ^
+senddnsquery-libnet.c:39:35: note: each undeclared identifier is reported only once for each function it appears in
+senddnsquery-libnet.c:60:4: warning: passing argument 7 of ‘libnet_build_dnsv4’ makes integer from pointer without a cast [enabled by default]
+    l, dns_tag);
+    ^
+In file included from /usr/include/libnet.h:124:0,
+                 from senddnsquery-libnet.c:21:
+/usr/include/libnet/libnet-functions.h:1046:1: note: expected ‘u_int16_t’ but argument is of type ‘char *’
+ libnet_build_dnsv4(u_int16_t h_len, u_int16_t id, u_int16_t flags,
+ ^
+senddnsquery-libnet.c:60:4: warning: passing argument 8 of ‘libnet_build_dnsv4’ makes pointer from integer without a cast [enabled by default]
+    l, dns_tag);
+    ^
+In file included from /usr/include/libnet.h:124:0,
+                 from senddnsquery-libnet.c:21:
+/usr/include/libnet/libnet-functions.h:1046:1: note: expected ‘u_int8_t *’ but argument is of type ‘int’
+ libnet_build_dnsv4(u_int16_t h_len, u_int16_t id, u_int16_t flags,
+ ^
+senddnsquery-libnet.c:60:4: warning: passing argument 9 of ‘libnet_build_dnsv4’ makes integer from pointer without a cast [enabled by default]
+    l, dns_tag);
+    ^
+In file included from /usr/include/libnet.h:124:0,
+                 from senddnsquery-libnet.c:21:
+/usr/include/libnet/libnet-functions.h:1046:1: note: expected ‘u_int32_t’ but argument is of type ‘struct libnet_t *’
+ libnet_build_dnsv4(u_int16_t h_len, u_int16_t id, u_int16_t flags,
+ ^
+senddnsquery-libnet.c:60:4: warning: passing argument 10 of ‘libnet_build_dnsv4’ makes pointer from integer without a cast [enabled by default]
+    l, dns_tag);
+    ^
+In file included from /usr/include/libnet.h:124:0,
+                 from senddnsquery-libnet.c:21:
+/usr/include/libnet/libnet-functions.h:1046:1: note: expected ‘struct libnet_t *’ but argument is of type ‘libnet_ptag_t’
+ libnet_build_dnsv4(u_int16_t h_len, u_int16_t id, u_int16_t flags,
+ ^
+senddnsquery-libnet.c:60:4: error: too few arguments to function ‘libnet_build_dnsv4’
+    l, dns_tag);
+    ^
+In file included from /usr/include/libnet.h:124:0,
+                 from senddnsquery-libnet.c:21:
+/usr/include/libnet/libnet-functions.h:1046:1: note: declared here
+ libnet_build_dnsv4(u_int16_t h_len, u_int16_t id, u_int16_t flags,
+ ^
+senddnsquery-libnet.c:66:29: error: expected expression before ‘,’ token
+    packet_size, /* length */, 0, /* ckecksum */
+                             ^
+senddnsquery-libnet.c:68:4: warning: passing argument 6 of ‘libnet_build_udp’ makes integer from pointer without a cast [enabled by default]
+    1, udp_tag);
+    ^
+In file included from /usr/include/libnet.h:124:0,
+                 from senddnsquery-libnet.c:21:
+/usr/include/libnet/libnet-functions.h:637:1: note: expected ‘u_int32_t’ but argument is of type ‘void *’
+ libnet_build_udp(u_int16_t sp, u_int16_t dp, u_int16_t len, u_int16_t sum,
+ ^
+senddnsquery-libnet.c:68:4: error: too many arguments to function ‘libnet_build_udp’
+    1, udp_tag);
+    ^
+In file included from /usr/include/libnet.h:124:0,
+                 from senddnsquery-libnet.c:21:
+/usr/include/libnet/libnet-functions.h:637:1: note: declared here
+ libnet_build_udp(u_int16_t sp, u_int16_t dp, u_int16_t len, u_int16_t sum,
+ ^

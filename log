@@ -1,0 +1,4 @@
+linux install sctp module and enable it:
+	sudo apt-get install libsctp-dev lksctp-tools
+	modprobe sctp 
+	lsmod | grep mod

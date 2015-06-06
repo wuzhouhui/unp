@@ -1,0 +1,14 @@
+Script started on Fri 10 Apr 2015 02:28:20 PM CST
+]0;dell@Inspiron: ~/Copy/unp/src/threadsdell@Inspiron:~/Copy/unp/src/threads$ ls
+config.h        tcpserv01.c  tcpserv02.c  typescript  unpthread.h
+strclithread.c  tcpserv01.o  tcpserv02.o  unp.h       web01.c
+]0;dell@Inspiron: ~/Copy/unp/src/threadsdell@Inspiron:~/Copy/unp/src/threads$ ps
+  PID TTY          TIME CMD
+ 6321 pts/12   00:00:00 bash
+ 6341 pts/12   00:00:00 ps
+]0;dell@Inspiron: ~/Copy/unp/src/threadsdell@Inspiron:~/Copy/unp/src/threads$ ls
+config.h        tcpserv01.c  tcpserv02.c  typescript  unpthread.h
+strclithread.c  tcpserv01.o  tcpserv02.o  unp.h       web01.c
+]0;dell@Inspiron: ~/Copy/unp/src/threadsdell@Inspiron:~/Copy/unp/src/threads$ exit
+
+Script done on Fri 10 Apr 2015 02:28:27 PM CST
