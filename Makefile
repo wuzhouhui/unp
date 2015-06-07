@@ -15,7 +15,7 @@ EXECS	= daytimetcpcli daytimetcpcliv6 daytimetcpserv 1.3 1.4 1.5	\
 DEPS	= config.h unp.h unpthread.h
 WRAPERS	= wraplib.o wrappthread.o wrapsock.o wrapstdio.o wrapunix.o
 
-.PHONY: clean all 
+.PHONY: clean all git
 
 %.o: %.c ${DEPS}
 	${CC} -c -o $@ $< ${CFLAGS}
@@ -265,6 +265,7 @@ all:
 
 clean:
 	rm -f *.o ${EXECS}
+
 git:
 	sed -i '/### Makefile ###/,$$$ d' .gitignore
 	echo '### Makefile ###' >> .gitignore
