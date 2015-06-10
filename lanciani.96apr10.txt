@@ -1,0 +1,130 @@
+Article: 49920 of comp.protocols.tcp-ip
+From: ddl@harvard.edu (Dan Lanciani)
+Newsgroups: comp.protocols.tcp-ip
+Subject: Re: sockets: AF_INET vs. PF_INET
+Message-ID: <3561@news.IPSWITCH.COM>
+Date: 10 Apr 96 01:27:20 GMT
+
+In article <3169B256.41C6@engr.sgi.com>, sam@engr.sgi.com (Sam Leffler) writes:
+| Dan Lanciani wrote:
+|> 
+|> In article <4k1grt$5gq@noao.edu>, rstevens@noao.edu (W. Richard Stevens) writes:
+|> | > So why the difference?
+|> | > AF vs PF?
+|> | > What does the difference mean?
+|> |
+|> | AF = address family.  These constants go into the sin_family member of the
+|> | socket address structure.
+|> |
+|> | PF = protocol family.  These constants are the first argument to socket().
+|> 
+|> There is a little more to it than that.  Although I don't have the ancient
+|> sources handy to check (and my memory of this particular aspect is fading),
+|> I recall that the original socket code (4.1c/2.8/2.9BSD) employed a protocol
+|> structure similar in concept to the sockaddr structure.  The protocol
+|> structure contained a family element and a family-specific protocol number.
+|> The PF_ constants were used for the family element of the protocol structure.
+|> A protocol structure (or, rather, the address of one) could be passed to the
+|> socket() call to serve a purpose similar to that of the last (integer)
+|> argument
+|> of the current socket() call.  (Keep in mind that the old socket() call did
+|> not
+|> take a family/domain argument at all, so interpretation of the protocol
+|> number
+|> would not have been possible without the PF_ cue.)  Originally, then, the PF_
+|> and AF_ constants had a much more parallel purpose as structure tags.  When
+|> socket() started requiring a family/domain argument, the protocol structure
+|> was dropped.
+| 
+| Well, actually your memory is a bit off.
+
+While that may well be true in general, I was correct on this issue. :)
+
+| The original socket design included
+| a concept termed a "communications domain" (or "communication domain", never
+| could decide which was correct :-)).  A domain encapsulated many aspects of
+| communication including the protocol family and address format.  Sockets were
+| to be created "within a domain" and carried with them the semantics of the
+| domain.  This was originally to be carried out using a domain() system call
+| that
+| returned a descriptor that was then passed as the first argument to socket().
+
+The above may describe the original *concept*, but it was not the implementation
+in 4.1c/2.9BSD.  Whether what you describe ever existed in an implementation, I
+can't say.  I do remember that early 4.2 manuals described all sorts of neat
+IPC mechanisms that did not exist in the operating system.  Something about
+``portals'' comes to mind.
+
+| Along the way we decided this was not worthwhile and replaced the descriptor
+| with a manifest constant (PF_*) that referenced a fixed set of domains with
+| the associated semantics.
+
+No, the evolution really did include the version I described.  It did not
+jump from the (hypothetical?) domain() semantics to the current state.
+Here is an excerpt from the socket() man page of old:
+
+-----------------------------------------------------------------------------
+SOCKET(2X)          UNIX Programmer's Manual           SOCKET(2X)
+
+NAME
+     socket - create an endpoint for communication
+
+SYNOPSIS
+     #include <sys/socket.h>
+
+     s = socket(type, pf, addr, options);
+     int type;
+     struct sockproto *pf;
+     struct sockaddr *addr;
+     int options;
+-----------------------------------------------------------------------------
+
+The type is what you would expect.  The pf is the object of interest.
+The addr was used in place of a separate bind() and the options argument
+encoded bits similar to those used in current setsockopt() calls (plus
+the important SO_ACCEPTCONN which pre-dated listen()).
+
+Here is the interesting section from sys/socket.h:
+
+-----------------------------------------------------------------------------
+struct sockproto {
+	short	sp_family;		/* protocol family */
+	short	sp_protocol;		/* protocol within family */
+};
+
+#define	PF_UNSPEC	0		/* unspecified */
+#define	PF_UNIX		1		/* UNIX internal protocol */
+#define	PF_INET		2		/* internetwork: UDP, TCP, etc. */
+#define	PF_IMPLINK	3		/* imp link protocols */
+#define	PF_PUP		4		/* pup protocols: e.g. BSP */
+#define	PF_CHAOS	5		/* mit CHAOS protocols */
+#define	PF_OISCP	6		/* ois communication protocols */
+#define	PF_NBS		7		/* nbs protocols */
+#define	PF_ECMA		8		/* european computer manufacturers */
+#define	PF_DATAKIT	9		/* datakit protocols */
+#define	PF_CCITT	10		/* CCITT protocols, X.25 etc */
+-----------------------------------------------------------------------------
+
+I programmed to these interfaces extensively; I assure you they were/are real.
+
+[...]
+
+|> Now, I would argue that the AF_ family is the correct set of constants
+|> for the first argument of socket().  My reason is simply that the constants
+|> in the tables in the socket code itself are AF_ values, and the first
+|> argument
+|> of socket() is compared to these to find the correct domain structure for
+|> the request.
+| 
+| The correct parameter is a PF_foo.
+
+Why?
+
+| In practice however AF_foo = PF_foo and
+| at this point any implementation that does not maintain this will break lots
+|of code.  FWIW my fingers automatically type AF_ when making a socket call :-).
+
+Good, you are doing the right thing. :)
+
+				Dan Lanciani
+				ddl@harvard.*
