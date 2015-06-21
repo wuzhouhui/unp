@@ -69,6 +69,7 @@ all:
 	make 17-6
 #	make 17-13
 #	make 18-14
+	make 12.2
 
 1-5: daytimetcpcli.o  error.o
 	${CC} ${OPT} error.o daytimetcpcli.o  -o daytimetcpcli
@@ -262,6 +263,10 @@ all:
 
 #18-14: error.o checkudpsum.o 
 #	${CC} ${OPT} error.o checkudpsum.o 
+
+12.2: error.o 12.2_1.o 12.2_2.o
+	${CC} ${OPT} error.o 12.2_1.o -o 12.2_1
+	${CC} ${OPT} error.o 12.2_2.o -o 12.2_2
 
 clean:
 	rm -f *.o ${EXECS}
