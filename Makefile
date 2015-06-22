@@ -269,7 +269,12 @@ all:
 	${CC} ${OPT} error.o 12.2_2.o -o 12.2_2
 
 clean:
-	rm -f *.o ${EXECS}
+	(rm -f *.o)
+	(for file in `ls`; do \
+		if [ -f $$file ] && [ -x $$file ]; \
+		then rm $$file;	\
+		fi \
+	done)
 
 git:
 	sed -i '/### Makefile ###/,$$$ d' .gitignore
